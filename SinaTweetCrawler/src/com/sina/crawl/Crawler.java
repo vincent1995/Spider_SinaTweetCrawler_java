@@ -20,12 +20,12 @@ import org.apache.http.client.ClientProtocolException;
  
 public class Crawler {
 	
-	/** 1.搜索页面是否存在 */
+	/** 1.鎼滅储椤甸潰鏄惁瀛樺湪 */
 	public boolean isExistResult(String html) {
 		boolean isExist = true;
 		Pattern pExist = Pattern.compile("\\\\u6ca1\\\\u6709\\\\u627e\\\\u5230\\\\u76f8"
 				+ "\\\\u5173\\\\u7684\\\\u5fae\\\\u535a\\\\u5462\\\\uff0c\\\\u6362\\\\u4e2a"
-				+ "\\\\u5173\\\\u952e\\\\u8bcd\\\\u8bd5\\\\u5427\\\\uff01");//没有找到相关的微博呢，换个关键词试试吧！
+				+ "\\\\u5173\\\\u952e\\\\u8bcd\\\\u8bd5\\\\u5427\\\\uff01");//娌℃湁鎵惧埌鐩稿叧鐨勫井鍗氬憿锛屾崲涓叧閿瘝璇曡瘯鍚э紒
 		Matcher mExist = pExist.matcher(html);
 		if(mExist.find()) {
 			isExist = false;

@@ -64,7 +64,7 @@ public class IPrepo {
 			String[] html = new LoadHTML().getHTML(url);
 			int page = 2;
 			while(! html[0].equals("404")) {
-				//System.out.println("×´Ì¬Âë " + html[0]);
+				//System.out.println("çŠ¶æ€ç  " + html[0]);
 				System.out.println("start finding proxy IPs under this link: " + url);
 				onePageIPs = getProxyIPs(html[1]);
 				for(int j=0; j<onePageIPs.size(); j++) {
@@ -81,7 +81,7 @@ public class IPrepo {
 				}
 				//System.out.println("page= " + page);
 				html = new LoadHTML().getHTML(url);
-				//System.out.println("×´Ì¬Âë " + html[0]);
+				//System.out.println("çŠ¶æ€ç  " + html[0]);
 				page ++;
 			}
 		}
@@ -107,7 +107,7 @@ public class IPrepo {
 			String ip = allIPs.get(i);
 			String hostName = ip.split(":")[0];
 			int port = Integer.parseInt(ip.split(":")[1]);
-			//ÔÚÏß²éÑ¯ÈÏÖ¤IPÍøÕ¾:"http://iprame.ip138.com/ic.asp"
+			//åœ¨çº¿æŸ¥è¯¢è®¤è¯IPç½‘ç«™:"http://iprame.ip138.com/ic.asp"
 			String varifyURL = "http://iframe.ip138.com/ic.asp";//http://ip.uee.cn/";
 			String html = new LoadHTML().getHTMLbyProxy(varifyURL, hostName, port);
 			int iReconn = 0;

@@ -42,40 +42,40 @@ import org.apache.http.util.EntityUtils;
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 public class LoadHTML {
 	
-	/** Ò»°ã·½·¨ */
+	/** ä¸€èˆ¬æ–¹æ³• */
 	public String[] getHTML(String url) throws ClientProtocolException, IOException {
 		String[] html = new String[2];
 		html[1] = "null";
 		RequestConfig requestConfig = RequestConfig.custom()
-				.setSocketTimeout(2000) //ÉèÖÃsocket³¬Ê±
-				.setConnectTimeout(2000) //ÉèÖÃconnect³¬Ê±
+				.setSocketTimeout(2000) //è®¾ç½®socketè¶…æ—¶
+				.setConnectTimeout(2000) //è®¾ç½®connectè¶…æ—¶
 				.build();
 		CloseableHttpClient httpClient = HttpClients.custom()
 				.setDefaultRequestConfig(requestConfig)
-				.build();
-		HttpGet httpGet = new HttpGet(url);
-		try {
-			CloseableHttpResponse response = httpClient.execute(httpGet);
-			//System.out.println(response.getStatusLine().getStatusCode());
-			html[0] = String.valueOf(response.getStatusLine().getStatusCode());
-			html[1] = EntityUtils.toString(response.getEntity(), "utf-8");
-			//System.out.println(html);
-		} catch (IOException e) {
-			System.out.println("Connection timeout...");
-		}
-		return html;
-	}
-	
-	/** cookie·½·¨µÄgetHTMl(): ÉèÖÃcookie²ßÂÔ,·ÀÖ¹cookie rejectedÎÊÌâ,¾Ü¾øĞ´Èëcookie
-	 *  --ÖØÔØ,3²ÎÊı:url, hostName, port */
-	public String getHTML(String url, String hostName, int port) throws URISyntaxException, ClientProtocolException, IOException {
-		//×Ô¶¨ÒåµÄcookie²ßÂÔ,½â¾öcookie rejectedÎÊÌâ(cookie¾Ü¾øĞ´Èë)
-		HttpHost proxy = new HttpHost(hostName, port);
-		DefaultProxyRoutePlanner routePlanner = new DefaultProxyRoutePlanner(proxy);
-		CookieSpecProvider cookieSpecProvider = new CookieSpecProvider() {
-			public CookieSpec create(HttpContext context) {
-				return new BrowserCompatSpec() {
-					@Override
+							.build();
+					HttpGet httpGet = new HttpGet(url);
+					try {
+						CloseableHttpResponse response = httpClient.execute(httpGet);
+						//System.out.println(response.getStatusLine().getStatusCode());
+						html[0] = String.valueOf(response.getStatusLine().getStatusCode());
+						html[1] = EntityUtils.toString(response.getEntity(), "utf-8");
+						//System.out.println(html);
+					} catch (IOException e) {
+						System.out.println("Connection timeout...");
+					}
+					return html;
+				}
+
+				/** cookieæ–¹æ³•çš„getHTMl(): è®¾ç½®cookieç­–ç•¥,é˜²æ­¢cookie rejectedé—®é¢˜,æ‹’ç»å†™å…¥cookie
+				 *  --é‡è½½,3å‚æ•°:url, hostName, port */
+			public String getHTML(String url, String hostName, int port) throws URISyntaxException, ClientProtocolException, IOException {
+				//è‡ªå®šä¹‰çš„cookieç­–ç•¥,è§£å†³cookie rejectedé—®é¢˜(cookieæ‹’ç»å†™å…¥)
+				HttpHost proxy = new HttpHost(hostName, port);
+				DefaultProxyRoutePlanner routePlanner = new DefaultProxyRoutePlanner(proxy);
+				CookieSpecProvider cookieSpecProvider = new CookieSpecProvider() {
+					public CookieSpec create(HttpContext context) {
+						return new BrowserCompatSpec() {
+							@Override
 					public void validate(Cookie cookie, CookieOrigin origin) throws MalformedCookieException {
 						//Oh, I am easy;
 					}
@@ -90,8 +90,8 @@ public class LoadHTML {
 				.build();
 		RequestConfig requestConfig = RequestConfig.custom()
 				.setCookieSpec("easy")
-				.setSocketTimeout(4000) //ÉèÖÃsocket³¬Ê±
-				.setConnectTimeout(4000) //ÉèÖÃconnect³¬Ê±
+				.setSocketTimeout(4000) //è®¾ç½®socketè¶…æ—¶
+				.setConnectTimeout(4000) //è®¾ç½®connectè¶…æ—¶
 				.build();
 		CloseableHttpClient httpClient = HttpClients.custom()
 				.setDefaultCookieSpecRegistry(r)
@@ -109,14 +109,14 @@ public class LoadHTML {
 		return html;
 	}
 	
-	/** proxy´úÀíIP·½·¨ */
+	/** proxyä»£ç†IPæ–¹æ³• */
 	public String getHTMLbyProxy(String targetURL, String hostName, int port) throws ClientProtocolException, IOException {
 		HttpHost proxy = new HttpHost(hostName, port);
 		String html = "null";
 		DefaultProxyRoutePlanner routePlanner = new DefaultProxyRoutePlanner(proxy);
 		RequestConfig requestConfig = RequestConfig.custom()
-				.setSocketTimeout(2000) //ÉèÖÃsocket³¬Ê±
-				.setConnectTimeout(2000) //ÉèÖÃconnect³¬Ê±
+				.setSocketTimeout(2000) //è®¾ç½®socketè¶…æ—¶
+				.setConnectTimeout(2000) //è®¾ç½®connectè¶…æ—¶
 				.build();
 		CloseableHttpClient httpClient = HttpClients.custom()
 				.setRoutePlanner(routePlanner)

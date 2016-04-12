@@ -41,8 +41,8 @@ public class HTMLParser {
 		Elements dates = doc.select("a[date]");
 		Elements tweetids = doc.select("dl[mid]");
 		Elements tweets = doc.select("p > em");
-		Elements forwardNums = doc.select("a:contains(×ª·¢)");
-		Elements commentNums = doc.select("a:contains(ÆÀÂÛ)");
+		Elements forwardNums = doc.select("a:contains(è½¬å‘)");
+		Elements commentNums = doc.select("a:contains(è¯„è®º)");
 		for(Element userName : userNames) {
 			String attr = userName.attr("title");
 			s += "<userName> " + attr + " </userName>";
@@ -71,15 +71,15 @@ public class HTMLParser {
 		}
 		for(Element forwardNum : forwardNums) {
 			String attr = forwardNum.text();
-			if(attr.equals("×ª·¢")) {
+			if(attr.equals("è½¬å‘")) {
 				attr = "0";
 			}
 			else {
-				if(!attr.contains("×ª·¢(")) {
+				if(!attr.contains("è½¬å‘(")) {
 					attr = "0";
 				}
 				else {
-					attr = attr.substring(attr.indexOf("×ª·¢(")+3, attr.indexOf(")"));
+					attr = attr.substring(attr.indexOf("è½¬å‘(")+3, attr.indexOf(")"));
 				}
 			}
 			System.out.println(attr);
@@ -87,15 +87,15 @@ public class HTMLParser {
 		}
 		for(Element commentNum : commentNums) {
 			String attr = commentNum.text();
-			if(attr.equals("ÆÀÂÛ")) {
+			if(attr.equals("è¯„è®º")) {
 				attr = "0";
 			}
 			else {
-				if(!attr.contains("ÆÀÂÛ(")) {
+				if(!attr.contains("è¯„è®º(")) {
 					attr = "0";
 				}
 				else {
-					attr = attr.substring(attr.indexOf("ÆÀÂÛ(")+3, attr.indexOf(""));
+					attr = attr.substring(attr.indexOf("è¯„è®º(")+3, attr.indexOf(""));
 				}
 			}
 			System.out.println(attr);
@@ -108,7 +108,7 @@ public class HTMLParser {
 	public Vector<String> write2txt(String searchword, String dirPath, String saveTXTPath) throws IOException {
 		Vector<String> tweets = new Vector<String>();
 		String onePiece;
-		File f = new File(saveTXTPath); //½¨Á¢Ò»¸ö¿ÕÎÄ¼ş
+		File f = new File(saveTXTPath); //å»ºç«‹ä¸€ä¸ªç©ºæ–‡ä»¶
 		FileWriter fw = new FileWriter(f);
 		BufferedWriter bw = new BufferedWriter(fw);
 		//dirPath = "e:/tweet/tweettxt/";
@@ -129,7 +129,7 @@ public class HTMLParser {
 					}
 					String s = new HTMLParser().parse(onePiece);
 					tweets.add(s);
-					bw.write(s+"\r\n"); //Ã¿´ÎĞ´ÍêÒ»ÌõÖ®ºóÒª»»ĞĞ!
+					bw.write(s+"\r\n"); //æ¯æ¬¡å†™å®Œä¸€æ¡ä¹‹åè¦æ¢è¡Œ!
 				}
 			}
 		}
@@ -141,13 +141,13 @@ public class HTMLParser {
 		int vectorSize = vector.size();
 		String oneIniTweet;
 		OutputFormat format = OutputFormat.createPrettyPrint();
-		format.setEncoding("GB2312"); //xml±»Ê¶±ğ¸ñÊ½½öÎªgb2312,Ä¬ÈÏutf8²»±»Ê¶±ğ
+		format.setEncoding("GB2312"); //xmlè¢«è¯†åˆ«æ ¼å¼ä»…ä¸ºgb2312,é»˜è®¤utf8ä¸è¢«è¯†åˆ«
 		File f = new File(saveXMLPath);
-		f.createNewFile(); //½¨Á¢Ò»¸ö¿ÕxmlÎÄ¼ş
+		f.createNewFile(); //å»ºç«‹ä¸€ä¸ªç©ºxmlæ–‡ä»¶
 		FileWriter fw = new FileWriter(f);
 		org.dom4j.Document document = DocumentHelper.createDocument();
-		org.dom4j.Element rootElement = document.addElement("tweets"); //¸ù½Úµãtweets
-		rootElement.addAttribute("totalNumber", String.valueOf(vectorSize)); //ÉèÖÃÊôĞÔ:×ÜÌõÄ¿Êı
+		org.dom4j.Element rootElement = document.addElement("tweets"); //æ ¹èŠ‚ç‚¹tweets
+		rootElement.addAttribute("totalNumber", String.valueOf(vectorSize)); //è®¾ç½®å±æ€§:æ€»æ¡ç›®æ•°
 		for(int j=0; j<vectorSize; j++) {
 			oneIniTweet = vector.get(j);
 			String userName = oneIniTweet.substring(oneIniTweet.indexOf("<userName> ")+12, oneIniTweet.indexOf(" </userName>"));
@@ -164,7 +164,7 @@ public class HTMLParser {
 			tweetElement.addAttribute("tweetid", tweetid);
 			tweetElement.addAttribute("forwardNum", forwardNum);
 			tweetElement.addAttribute("commentNum", commentNum);
-			tweetElement.setText(tweetContent); // ÉèÖÃ½ÚµãÎÄ±¾ÄÚÈİ
+			tweetElement.setText(tweetContent); // è®¾ç½®èŠ‚ç‚¹æ–‡æœ¬å†…å®¹
 		}
 		XMLWriter xw = new XMLWriter(fw, format);
 		xw.write(document);
