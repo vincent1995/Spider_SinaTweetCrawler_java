@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+
+<configure>
+	<path>
+		<logPath>/home/lz/Workplace/IR/scut</logPath>
+		<urlPath>/home/lz/Workplace/sina/SinaTweetCrawler/IP</urlPath>
+	</path>
+
+	<log>
+		<console>true</console>
+		<file>true</file>
+		<debug>true</debug>
+	</log>
+</configure>
